@@ -1,0 +1,10 @@
+const arrayDiff = (a, b) => {
+  let result = [];
+//   loop to compare array values, push to result if unique
+  for(let i = 0; i < a.length; i++){
+    if(!b.includes(a[i])){
+      result.push(a[i]);
+    }
+  }
+  return (result)
+}
