@@ -1,0 +1,77 @@
+
+function encode(string) {
+  const vMap = {
+    'a':'1',
+    'e':'2',
+    'i':'3',
+    'o':'4',
+    'u':'5'
+  }
+  let s = string.split(' ');
+  let result = '';
+//   loop through words>letters to match vMap keys
+  for(let i = 0; i < s.length; i++){
+   for(let j = 0; j < s[i].length; j++){
+     let letter = s[i][j];
+//      if key, add to result
+     if(Object.keys(vMap).includes(letter)){
+       result += vMap[letter];
+     } else {
+       result += letter;
+     }
+   }
+//     add space after each word
+    result += ' ';
+  }
+  return result.trim()
+}
+
+function decode(string) {
+  const vMap = {
+    'a':'1',
+    'e':'2',
+    'i':'3',
+    'o':'4',
+    'u':'5'
+  }
+  let s = string.split(' ');
+  let result = '';
+// function to assess key based on value
+  const findKey = (object, value) => {
+    for (let prop in object) { 
+        if (object.hasOwnProperty(prop)) { 
+            if (object[prop] === value) 
+            return prop; 
+        } 
+    }
+  }
+//   loop through words>letters
+  for(let i = 0; i < s.length; i++){
+        for(let j = 0; j<s[i].length; j++){
+          let letter = s[i][j];
+//     if vMap includes value of letter, find key w/ function and add to result
+          if(Object.values(vMap).includes(letter)){
+            result+= findKey(vMap, letter)
+          } else {
+            result += letter
+          }
+          
+        }
+//     add space after every word
+      result += ' ';
+  }
+  return result.trim();
+}
+
+
+
+
+//TESTING
+describe("Sample tests", function() {
+  it("Tests", function() {
+    assert.equal(encode('hello'), 'h2ll4');
+    assert.equal(encode('How are you today?'), 'H4w 1r2 y45 t4d1y?');
+    assert.equal(encode('This is an encoding test.'), 'Th3s 3s 1n 2nc4d3ng t2st.');
+    assert.equal(decode('h2ll4'), 'hello');
+  });
+});
